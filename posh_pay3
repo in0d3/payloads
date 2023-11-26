@@ -1,4 +1,4 @@
-Start-Process owershell -WindowStyle hidden
+Start-Process powershell -WindowStyle hidden
 
 #Suppress all errors
 $ErrorActionPreference= 'silentlycontinue'
