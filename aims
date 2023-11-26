@@ -1,6 +1,8 @@
 #Suppress all errors
 $ErrorActionPreference= 'silentlycontinue'
 
+Start-Process powershell -WindowStyle hidden
+
 # .Net methods for hiding/showing the console in the background
 Add-Type -Name Window -Namespace Console -MemberDefinition '
 [DllImport("Kernel32.dll")]
